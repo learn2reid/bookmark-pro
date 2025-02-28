@@ -8,6 +8,7 @@ function init() {
   getActiveTab();
   getBookmarks();
   initEvents();
+    document.getElementsByClassName('js-select-folder')[0].focus();
 }
 
 var tabTitle, tabUrl, favIconUrl, selectedText;
