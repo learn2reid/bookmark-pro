@@ -175,9 +175,9 @@ function getBookmarks(){
 
           if (activeBookmark !== false) {
             $('.js-input-title').val(activeBookmark.title);
-            $('.js-select-folder').select2('val', activeBookmark.parentId);
+            $('.js-select-folder').val(activeBookmark.parentId);
           } else {
-            $('.js-select-folder').select2('val', allFolders[0].id);
+            $('.js-select-folder').val(allFolders[0].id);
           }
 
         });//eo select2 init
@@ -308,3 +308,4 @@ var decodeEntities = (function() {
   }
   return decodeHTMLEntities;
 })();
+
