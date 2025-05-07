@@ -53,7 +53,8 @@ function getActiveTab() {
 } //eo getActiveTab
 
 var select2open = false;
-var updateOnSave = false;
+// updateOnSave tells the extension whether to create a new bookmark or update an existing one for the current page.
+var updateOnSave = false; // Flag Used to determine if we're updating an existing bookmark
 var activeBookmark = false;
 var allFolders = new Array();
 
@@ -61,7 +62,7 @@ function getBookmarks(){
 
   $(document).on('click', '.js-use-this-folder', function(e){
     e.preventDefault();
-    $('.js-select-folder').select2("val", $(this).data('id'));
+    $('.js-select-folder').val($(this).data('id'));
   });
 
 
@@ -191,7 +192,7 @@ function initEvents() {
   //Bind save event
   //This should use an updated tabTitle and tabUrl value
   $('.js-save-btn').on('click', function(){
-    var folderId = $(".js-select-folder").select2("val");
+    var folderId = $(".js-select-folder").val();
     tabTitle = $('.js-input-title').val();
     tabUrl = $('.js-input-url').val();
 
@@ -289,7 +290,7 @@ function initEvents() {
 } //eo initEvents
 
 function error(e) {
-  console.log('This is an error from the Bookmark Pro extenstion. Please report it to jeff@jeffvlahos.com', e);
+	console.log('This is an error from the Bookmark Pro extension. Please report it as bug on https://github.com/learn2reid/bookmark-pro', e);
 }
 
 //Helper Functions
