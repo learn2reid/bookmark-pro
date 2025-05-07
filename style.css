@@ -1,85 +1,94 @@
-
 * {
-font-family: 'Roboto', sans-serif !important;
+	font-family: 'Roboto', sans-serif !important;
 }
 
 html,
 body {
-  background-color: #fafafa;
+	background-color: #fafafa;
 }
 
 body {
-  height: 200px;
-  padding: 10px 5px;
-  width: 350px;
+	height: 220px;
+	padding: 10px 5px;
+	width: 350px;
 }
 
 select:focus,
 input:focus,
 *:focus {
-  outline: none;
+	outline: none;
 }
 
 input {
-  outline: none; border: none;
-  background-color: transparent;
-  border-bottom: 2px solid #DDD;
-  display: block;
-  font-size: 16px;
-  margin-bottom: 12px;
-  padding: 8px 8px 8px 0px;
-  width: 305px;
+	outline: none;
+	border: none;
+	background-color: transparent;
+	border-bottom: 2px solid #DDD;
+	display: block;
+	font-size: 16px;
+	margin-bottom: 12px;
+	padding: 8px 8px 8px 0px;
+	width: 305px;
 }
 
 input:focus {
-  border-bottom: 2px solid #2196F3;
-  outline: none;
+	border-bottom: 2px solid #2196F3;
+	outline: none;
 }
 
 .input-icon {
-  background-size: cover;
-  display: block;
-  float: left;
-  margin: 8px 16px 8px 8px;
-  height: 17px;
-  width: 17px;
+	background-size: cover;
+	display: block;
+	float: left;
+	margin: 8px 16px 8px 8px;
+	height: 17px;
+	width: 17px;
+}
+
+.input-group {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.input-group-new-folder {
+	display: none;
 }
 
 .icon-link {
-  background-image: url('/img/icon-link-gray-25-25.png');
+	background-image: url('/img/icon-link-gray-25-25.png');
 }
 
 .is-focused .icon-link {
-  background-image: url('/img/icon-link-blue-25-25.png');
+	background-image: url('/img/icon-link-blue-25-25.png');
 }
 
 .icon-title {
-  font-size: 16px;
-  color: #666;
+	font-size: 16px;
+	color: #666;
 }
 
 .is-focused .icon-title {
-  color: #1E88E5;
+	color: #1E88E5;
 }
 
 .icon-folder {
-  background-image: url('/img/icon-folder-gray-25-25.png');
-  position: relative;
+	background-image: url('/img/icon-folder-gray-25-25.png');
+	position: relative;
 }
 
 .is-focused .icon-folder {
-  background-image: url('/img/icon-folder-blue-25-25.png');
+	background-image: url('/img/icon-folder-blue-25-25.png');
 }
 
 .is-new-folder-mode .select2-group .icon-folder:after {
-  background-color: #DDD;
-  content: "";
-  display: block;
-  height: 49px;
-  left: 7px;
-  position: absolute;
-  top: 20px;
-  width: 2px;
+	background-color: #DDD;
+	content: "";
+	display: block;
+	height: 49px;
+	left: 7px;
+	position: absolute;
+	top: 20px;
+	width: 2px;
 }
 
 /*=============================================
@@ -88,202 +97,207 @@ input:focus {
 
 /*Before Select loads*/
 .js-select-folder {
-  max-width: 305px;
+	max-width: 305px;
 }
 
 /*Select 2 Container*/
 .select2-container {
-  width: 305px !important;
+	width: 305px !important;
 }
 
 /*Select 2 Dropdown Trigger */
 .select2-container .select2-selection--single {
-  border: none; outline: none;
-  background-color: transparent;
-  border-bottom: 2px solid #DDD;
-  border-radius: 0px;
-  height: 32px;
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 2px solid #DDD;
+	border-radius: 0px;
+	height: 32px;
 }
 
 /*Select 2 Dropdown Trigger: Focus + Open State*/
 .select2-container--focus .select2-selection--single,
 .select2-container--open .select2-selection--single {
-  border-bottom: 2px solid #2196F3;
+	border-bottom: 2px solid #2196F3;
 }
 
 /*Select 2 Dropdown Trigger Text*/
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-  font-size: 16px;
-  line-height: 32px;
-  padding-left: 0px;
+	font-size: 16px;
+	line-height: 32px;
+	padding-left: 0px;
+	font-weight: 500;
 }
 
 /*Select 2 Dropdown Trigger Text on Open (to combat jumpiness) */
 .select2-container--focus .select2-selection--single .select2-selection__rendered,
 .select2-container--open .select2-selection--single .select2-selection__rendered {
-  line-height: 29px;
+	line-height: 29px;
 }
 
 /*Select 2 Dropdown Trigger Up/Down Arrow*/
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-  height: 28px;
+	height: 28px;
 }
 
 /*Select 2 Dropdown Search Field*/
 .select2-container--default .select2-search--dropdown .select2-search__field {
-  border: none;
-  border-bottom: 2px solid #EEE;
-  font-size: 14px;
-  margin-bottom: 0px;
-  padding-bottom: 6px;
-  padding-left: 0px;
+	border: none;
+	border-bottom: 2px solid #EEE;
+	font-size: 14px;
+	margin-bottom: 0px;
+	padding-bottom: 6px;
+	padding-left: 0px;
 }
 
 /*Select 2 Dropdown Search Field: Focus State*/
 .select2-search__field:focus {
-  border-bottom: 2px solid #2196F3;
+	border-bottom: 2px solid #2196F3;
 }
 
 /*Select 2 Dropdown Search Option Group label*/
 .select2-container--default .select2-results__group {
-  color: #BBB;
-  font-size: 12px;
+	color: #BBB;
+	font-size: 12px;
 }
 
 /*Select 2 Dropdown Search Option*/
 .select2-results__option {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 /*-----  End of Select2 Styles  ------*/
 
 
 .recent-folders {
-  margin: 6px 0 8px 42px;
+	margin: 6px 0 8px 42px;
 }
 
 .recent-folder-btn,
 .new-folder-btn {
-  outline: none; border: none;
-  background-color: transparent;
-  color: #AAA;
-  padding: 0px;
-  margin-right: 8px;
+	outline: none;
+	border: none;
+	background-color: transparent;
+	color: #545454;
+	padding: 0px;
+	margin-right: 8px;
 }
 
+.recent-folder-btn {
+	background: #E7E7E7;
+	padding: 5px 10px;
+	border-radius: 100px;
+	margin-block: 2px;
 
-.recent-folder-btn:hover {
-  color: #2196F3;
-  cursor: pointer;
+	&:hover {
+		color: #2196F3;
+		cursor: pointer;
+	}
 }
 
 .new-folder-btn {
-  float: right;
+	float: right;
+	color: #2496F3;
+	font-weight: bold;
+
+	&:hover {
+		color: #4CAF50;
+		cursor: pointer;
+	}
 }
 
 /*.is-new-folder-mode .new-folder-btn {
   display: none;
 }*/
 
-.new-folder-btn:hover {
-  color: #4CAF50;
-  cursor: pointer;
-}
-
 .is-new-folder-mode .new-folder-btn:hover {
-  color: #F44336;
+	color: #F44336;
 }
 
 .save-btn {
-  border: none; outline: none;
-  background-color: #2196F3;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  color: white;
-  display: block;
-  margin-top: 20px;
-  text-transform: uppercase;
-  width: 100%;
+	border: none;
+	outline: none;
+	background-color: #2196F3;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	color: white;
+	display: block;
+	margin-top: 20px;
+	text-transform: uppercase;
+	width: 100%;
 }
 
 .save-btn:hover {
-  background-color: #1E88E5;
-  cursor: pointer;
+	background-color: #1E88E5;
+	cursor: pointer;
 }
 
 .is-update-mode .save-btn {
-  display: inline-block;
-  width: calc(100% - 44px);
+	display: inline-block;
+	width: calc(100% - 44px);
 }
 
 .save-btn:active {
-  background-color: #1976D2;
+	background-color: #1976D2;
 }
 
 .delete-btn {
-  border: none; outline: none;
-  background-color:#9E9E9E;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  color: white;
-  display: none;
-  height: 35px;
-  margin-left: 8px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 36px;
+	border: none;
+	outline: none;
+	background-color: #9E9E9E;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	color: white;
+	display: none;
+	height: 35px;
+	margin-left: 8px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 36px;
 }
 
 .delete-btn:hover {
-  background-color: #F44336;
-  cursor: pointer;
+	background-color: #F44336;
+	cursor: pointer;
 }
 
 .delete-btn:active {
-  background-color: #E53935;
+	background-color: #E53935;
 }
 
 .delete-btn span {
-  display: block;
-  font-family: 'Helvetica', sans-serif !important;
-  font-weight: bold;
-  font-size: 24px;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+	display: block;
+	font-family: 'Helvetica', sans-serif !important;
+	font-weight: bold;
+	font-size: 24px;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 .is-update-mode .delete-btn {
-  display: inline-block;
-}
-
-.input-group-new-folder {
-  display: none;
+	display: inline-block;
 }
 
 .is-new-folder-mode .input-group-new-folder {
-  display: block;
+	display: block;
 }
 
 .is-new-folder-mode .input-new-folder {
-  position: relative;
-  width: 275px;
+	position: relative;
+	width: 275px;
 }
 
 .is-new-folder-mode .input-group-new-folder .icon-folder {
-  margin-left: 40px;
-  position: relative;
+	margin-left: 40px;
+	position: relative;
 }
 
 
 .is-new-folder-mode .input-group-new-folder .icon-folder:after {
-  content: "";
-  background-color: #DDD;
-  display: block;
-  left: -24px;
-  top: 8px;
-  position: absolute;
-  height: 2px;
-  width: 19px;
+	content: "";
+	background-color: #DDD;
+	display: block;
+	left: -24px;
+	top: 8px;
+	position: absolute;
+	height: 2px;
+	width: 19px;
 }
-
-
-
-
