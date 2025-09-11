@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
 	init();
 });
@@ -8,36 +6,33 @@ function init() {
 	getActiveTab();
 	getBookmarks();
 	initEvents();
-	document.getElementsByClassName('js-select-folder')[ 0 ].focus();
+	document.getElementsByClassName("js-select-folder")[0].focus();
 }
 
 var tabTitle, tabUrl, favIconUrl, selectedText;
 var newFolderOnSave = false;
 
 function getActiveTab() {
-
 	//Get active tab title and URL
 	//Append any selected text to title
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
-
 		// This receives a message from the window with any selected text on-page
 		// A long-winded hack in order to make this functionality possible
-		chrome.tabs.sendMessage(tab[ 0 ].id, { method: "getSelection" }, function (response) {
-
+		chrome.tabs.sendMessage(tab[0].id, { method: "getSelection" }, function (response) {
 			if (response) {
 				selectedText = response.data;
 			}
 
 			//Find favicon url, which is an element of Chrome's tab API
 			//Set it to background image of icon
-			favIconUrl = tab[ 0 ].favIconUrl;
+			favIconUrl = tab[0].favIconUrl;
 			if (favIconUrl !== undefined) {
 				$('.icon-title').text('').css('background-image', 'url(' + favIconUrl + ')');
 			}
 
 			//Find url and title, also Chrome tab API
-			tabUrl = tab[ 0 ].url;
-			tabTitle = tab[ 0 ].title;
+			tabUrl = tab[0].url;
+			tabTitle = tab[0].title;
 
 			//Set input values
 			$('.js-input-url').val(tabUrl);
@@ -67,18 +62,16 @@ function getBookmarks() {
 
 	var bookmarksBarId;
 	//Get bookmarks and create dropdown menu
-	chrome.bookmarks.getTree(
-		function (bookmarkTreeNode) {
-			bookmarksBarId = bookmarkTreeNode[ 0 ].children[ 0 ].id;
-			getBookmarkFoldersWithin(bookmarksBarId);
-		});
+	chrome.bookmarks.getTree(function (bookmarkTreeNode) {
+		bookmarksBarId = bookmarkTreeNode[0].children[0].id;
+		getBookmarkFoldersWithin(bookmarksBarId);
+	});
 
 	function getBookmarkFoldersWithin(bookmarksBarId) {
 		//Get bookmarks and create dropdown menu
 		chrome.bookmarks.getTree(function (bookmarkTreeNode) {
-
 			// console.log("All Bookmarks Object:", bookmarkTreeNode[0]);
-			var bookmarksObj = bookmarkTreeNode[ 0 ];
+			var bookmarksObj = bookmarkTreeNode[0];
 			getBookmarksWithin(bookmarksObj);
 
 			function getBookmarksWithin(folderObj) {
@@ -93,7 +86,7 @@ function getBookmarks() {
 						// If folder has children
 						if (folderChildren.length && folderChildren.length > 0) {
 							for (var c = 0; c < folderChildren.length; c++) {
-								getBookmarksWithin(folderChildren[ c ]);
+								getBookmarksWithin(folderChildren[c]);
 							}
 						}
 					}
@@ -104,18 +97,21 @@ function getBookmarks() {
 							bookmarkUrl == tabUrl ||
 							(bookmarkUrl && tabUrl && bookmarkUrl.split('#')[ 0 ] == tabUrl.split('#')[ 0 ])
 						) {
-							//Check for hash differences, which Google doesn't do.
+							// Check for hash differences, which Google doesn't do.
 							activeBookmark = folderObj;
 							updateOnSave = true;
-							$('.save-btn').val('Update');
-							$('.popup-body').addClass('is-update-mode');
+							$(".save-btn").val("Update");
+							$(".popup-body").addClass("is-update-mode");
+
+							// Log a message to the console
+							console.log(
+								`Bookmark already exists in folder: "${folderObj.title}" (ID: ${folderObj.parentId})`
+							);
 						}
 					}
-				}
-				catch (e) {
+				} catch (e) {
 					error(e);
 				}
-
 			} //eo getBookmarksWithin
 
 			function addFolderOption(folderObj) {
@@ -126,7 +122,7 @@ function getBookmarks() {
 
 					if (folderObj.dateGroupModified) {
 						//Only want to sort modifiable folders
-						allFolders[ allFolders.length ] = folderObj;
+						allFolders[allFolders.length] = folderObj;
 					}
 
 					var option = $('<option>');
@@ -136,14 +132,14 @@ function getBookmarks() {
 					$('.js-select-folder').append(option);
 				}
 
-			}//eo addFolderOption
+			} //eo addFolderOption
 
 
 			$('.js-select-folder').select2({
-				escapeMarkup: function (text) {
-					return text;
+					escapeMarkup: function (text) {
+						return text;
 				}
-			})
+				})
 				.on("select2:open", function () {
 					select2open = true;
 					$('html, body').css('height', '365px');
@@ -169,99 +165,102 @@ function getBookmarks() {
 				//except not for the first one.
 				for (var f = 1; f < 4; f++) {
 					var button = $('<button class="js-use-this-folder recent-folder-btn">');
-					button.attr('data-id', parseInt(allFolders[ f ].id));
-					button.text(allFolders[ f ].title);
-					$('.js-recent-folders').append(button);
+					button.attr("data-id", parseInt(allFolders[f].id));
+					button.text(allFolders[f].title);
+					$(".js-recent-folders").append(button);
 				}
-
 			}
 
 			if (activeBookmark !== false) {
-				$('.js-input-title').val(activeBookmark.title);
-				$('.js-select-folder').val(activeBookmark.parentId).trigger('change');
+				$(".js-input-title").val(activeBookmark.title);
+				$(".js-select-folder").val(activeBookmark.parentId).trigger("change");
 			} else {
-				$('.js-select-folder').val(allFolders[ 0 ].id).trigger('change');
+				$(".js-select-folder").val(allFolders[0].id).trigger("change");
 			}
-
-		});//eo select2 init
-
-	}//eo chrome.bookmarks.getTree
-}//eo getBookmarks()
-
+		}); //eo select2 init
+	} //eo chrome.bookmarks.getTree
+} //eo getBookmarks()
 
 function initEvents() {
-
 	//Bind save event
 	//This should use an updated tabTitle and tabUrl value
-	$('.js-save-btn').on('click', function () {
+	$(".js-save-btn").on("click", function () {
 		var folderId = $(".js-select-folder").val();
-		tabTitle = $('.js-input-title').val();
-		tabUrl = $('.js-input-url').val();
+		tabTitle = $(".js-input-title").val();
+		tabUrl = $(".js-input-url").val();
 
 		//If we're saving this to an existing folder
 		if (newFolderOnSave == false) {
 			if (updateOnSave == false) {
-				chrome.bookmarks.create({ 'parentId': folderId, 'title': tabTitle, 'url': tabUrl });
+				chrome.bookmarks.create({ parentId: folderId, title: tabTitle, url: tabUrl });
 			}
 			if (updateOnSave == true) {
-				chrome.bookmarks.update(activeBookmark.id, { 'title': tabTitle, 'url': tabUrl });
-				chrome.bookmarks.move(activeBookmark.id, { 'parentId': folderId });
+				chrome.bookmarks.update(activeBookmark.id, { title: tabTitle, url: tabUrl });
+				chrome.bookmarks.move(activeBookmark.id, { parentId: folderId });
 			}
 		}
 
 		//If we're saving it to a new folder
 		else if (newFolderOnSave == true) {
-			var newFolderName = $('.js-input-new-folder').val();
+			var newFolderName = $(".js-input-new-folder").val();
 
 			//Create the folder, and save the bookmark within the callback
-			chrome.bookmarks.create({ 'title': newFolderName, 'parentId': folderId },
+			chrome.bookmarks.create(
+				{ title: newFolderName, parentId: folderId },
 				function (newBookmarkFolder) {
 					folderId = newBookmarkFolder.id;
 					//Afterwards, we'll save it to the new folder.
 					//How we save it depends on whether we're moving it or saving a brand new bookmark
 					if (updateOnSave == false) {
-						chrome.bookmarks.create({ 'parentId': folderId, 'title': tabTitle, 'url': tabUrl });
+						chrome.bookmarks.create({
+							parentId: folderId,
+							title: tabTitle,
+							url: tabUrl,
+						});
 					} else if (updateOnSave == true) {
-						chrome.bookmarks.update(activeBookmark.id, { 'title': tabTitle, 'url': tabUrl });
+						chrome.bookmarks.update(activeBookmark.id, {
+							title: tabTitle,
+							url: tabUrl,
+						});
 						//Only title and url are supported for update function, so we'll delete then create
-						chrome.bookmarks.move(activeBookmark.id, { 'parentId': folderId });
+						chrome.bookmarks.move(activeBookmark.id, { parentId: folderId });
 					}
-				});
+				}
+			);
 		}
 
 		//All set
 		window.close();
-
 	});
 
-	$('.js-delete-btn').on('click', function () {
+	$(".js-delete-btn").on("click", function () {
 		chrome.bookmarks.remove(activeBookmark.id, function () {
 			//All set
 			window.close();
 		});
 	});
 
-	$('.js-new-folder-btn').on('click', function () {
+	$(".js-new-folder-btn").on("click", function () {
 		if (newFolderOnSave == false) {
-			$('body').addClass('is-new-folder-mode');
+			$("body").addClass("is-new-folder-mode");
 			newFolderOnSave = true;
-			$(this).text('Cancel');
-			$('.js-input-new-folder').trigger('focus');
+			$(this).text("Cancel");
+			$(".js-input-new-folder").trigger("focus");
 		} else {
-			$('body').removeClass('is-new-folder-mode');
+			$("body").removeClass("is-new-folder-mode");
 			newFolderOnSave = false;
-			$(this).text('New Folder');
-			$('html, body').css('height', '190px');
+			$(this).text("New Folder");
+			$("html, body").css("height", "190px");
 		}
 	});
 
 	$(document).keydown(function (e) {
 		// Enter Key
 		if (e.keyCode == 13) {
-			if ($('.select2-container--focus').length > 0) {
+			if ($(".select2-container--focus").length > 0) {
 				return;
 			} else {
-				$('.js-save-btn').trigger('click');
+				$(".js-save-btn").trigger("click");
 			}
 			// Escape Key
 		} else if (e.keyCode == 27) {
